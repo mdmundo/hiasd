@@ -1,32 +1,11 @@
 import { useState, useEffect } from "react";
-// import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Card, CardContent, CardActions, Grid, IconButton, Tooltip, Container, Box } from "@mui/material";
 import { ArrowBack, Favorite } from "@mui/icons-material";
 import { navigate } from "@reach/router";
-// import context from "../../context";
 import hymns from "./hymns";
 import { setFavorite, getFavorites } from "../common/favorites";
 
-// const useStyles = makeStyles((theme) => ({
-//   action: {
-//     marginTop: theme.spacing(5),
-//   },
-//   caption: {
-//     marginBottom: theme.spacing(2),
-//   },
-
-//   stanza: {
-//     marginBottom: theme.spacing(2),
-//   },
-//   lyrics: {
-//     marginTop: theme.spacing(8),
-//   },
-// }));
-
 const Player = ({ mode, hymn: number, url }) => {
-  // const { hymnState, URIDispatch, finishedDispatch } = useContext(context);
-
-  // const hymn = hymns[hymnState - 1];
   const hymn = hymns[number - 1];
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -35,28 +14,18 @@ const Player = ({ mode, hymn: number, url }) => {
     getFavorites().then((favorites) => {
       setIsFavorite(favorites.includes(number));
     });
-    // }, [hymnState]);
   }, [number]);
 
-  // const onFinished = () => {
-  //   URIDispatch('');
-  //   finishedDispatch(true);
-  // };
-
   const onFavorite = async () => {
-    // await setFavorite(hymnState, isFavorite);
     await setFavorite(number, isFavorite);
     setIsFavorite(!isFavorite);
   };
-
-  // const classes = useStyles();
 
   return (
     <Container
       sx={{
         marginTop: 2,
         marginBottom: 2,
-        // padding: (3, 2),
       }}
       maxWidth="xs"
     >
