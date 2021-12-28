@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Typography, Card, CardContent, CardActions, Grid, IconButton, Tooltip, Container, Box } from "@mui/material";
-import { ArrowBack, Favorite } from "@mui/icons-material";
+import { ArrowBack, Favorite, Share } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import hymns from "./hymns";
 import { setFavorite, getFavorites } from "../common/favorites";
 
-const Player = ({ hymn: number, url }) => {
+const Player = ({ mode, hymn: number, url }) => {
   const hymn = hymns[number - 1];
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -79,6 +79,19 @@ const Player = ({ hymn: number, url }) => {
                 }}
               >
                 <ArrowBack />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Compartilhar" placement="top">
+              <IconButton
+                onClick={() => {
+                  navigator.share({
+                    title: "Hinário Adventista",
+                    text: `${number} - ${hymn.attributes.title}`,
+                    url: `${process.env.PUBLIC_URL}/load/${mode}/${number}`,
+                  });
+                }}
+              >
+                <Share />
               </IconButton>
             </Tooltip>
             <Tooltip title={isFavorite ? "Desfavoritar" : "Favoritar"} placement="top-end">

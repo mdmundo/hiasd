@@ -12,13 +12,13 @@ const Loader = ({ mode, hymn }) => {
     if (mode !== "lyrics") {
       getHymn(path, setProgress).then((hymnURI) => {
         if (hymnURI) {
-          navigate(`/play/${hymn}/${encodeURIComponent(hymnURI)}`);
+          navigate(`/play/${mode}/${hymn}/${encodeURIComponent(hymnURI)}`);
         } else {
           navigate("/error");
         }
       });
     } else {
-      navigate(`/play/${hymn}`);
+      navigate(`/play/${mode}/${hymn}`);
     }
   }, [path, hymn, mode]);
 
