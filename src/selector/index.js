@@ -61,7 +61,6 @@ const Selector = () => {
           disableClearable
           sx={{ paddingBottom: 2 }}
           fullWidth
-          id="grouped-demo"
           options={options}
           noOptionsText="Sem Opções"
           groupBy={(option) => option.category}
