@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, Autocomplete, Grid, Tooltip, IconButton, Container } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
+import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
 import hymns from "./options.json";
 import { getFavorites } from "../common/favorites";
@@ -15,7 +16,7 @@ const Selector = () => {
 
     if (isNaN(hymn) || parseInt(hymn) < 1 || parseInt(hymn) > 613) return;
 
-    // NAVIGATE TO ROUTE
+    navigate(`/load/${mode}/${hymn}`);
     // maybe save current hymn and mode...
   };
 
