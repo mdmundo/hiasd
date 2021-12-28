@@ -71,7 +71,6 @@ const Selector = () => {
           <Grid item xs={2}>
             <Tooltip title="Cantado">
               <IconButton
-                disableRipple
                 onClick={() => {
                   setMode("sung");
                 }}
@@ -83,7 +82,6 @@ const Selector = () => {
           <Grid item xs={2}>
             <Tooltip title="Instrumental">
               <IconButton
-                disableRipple
                 onClick={() => {
                   setMode("instrumental");
                 }}
@@ -95,7 +93,6 @@ const Selector = () => {
           <Grid item xs={2}>
             <Tooltip title="Letra">
               <IconButton
-                disableRipple
                 onClick={() => {
                   setMode("lyrics");
                 }}
