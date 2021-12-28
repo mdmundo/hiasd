@@ -11,7 +11,6 @@ const AppRouter = () => (
     <Error path="/error" />
     <Player path="/play/:hymn" />
     <Player path="/play/:hymn/:url" />
-    {/* format url before sending as argument */}
   </Router>
 );
 
