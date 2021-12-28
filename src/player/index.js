@@ -69,6 +69,7 @@ const Player = ({ hymn: number, url }) => {
             })}
           </Box>
         </CardContent>
+        <video autoPlay height={0} width={0} src={decodeURIComponent(url)} />
         <CardActions disableSpacing sx={{ marginTop: 5 }}>
           <Grid container direction="row" justifyContent="space-between" alignItems="center">
             <Tooltip title="Voltar" placement="top-start">

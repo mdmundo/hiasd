@@ -9,15 +9,18 @@ const Loader = ({ mode, hymn }) => {
   const path = getPath({ mode, hymn });
 
   useEffect(() => {
-    getHymn(path, setProgress).then((hymnURI) => {
-      if (hymnURI) {
-        // URIDispatch(hymnURI);
-        // NAVIGATE TO PLAYER
-      } else {
-        navigate("/error");
-      }
-    });
-  }, [path]);
+    if (mode !== "lyrics") {
+      getHymn(path, setProgress).then((hymnURI) => {
+        if (hymnURI) {
+          navigate(`/play/${hymn}/${encodeURIComponent(hymnURI)}`);
+        } else {
+          navigate("/error");
+        }
+      });
+    } else {
+      navigate(`/play/${hymn}`);
+    }
+  }, [path, hymn, mode]);
 
   return (
     <Container
