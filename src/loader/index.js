@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { CircularProgress, Typography, Card, CardContent, Container } from "@mui/material";
 import { navigate } from "@reach/router";
 import { getHymn } from "./hymn";
