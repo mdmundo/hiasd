@@ -6,7 +6,6 @@ import hymns from "./options.json";
 import { getFavorites } from "../common/favorites";
 
 const Selector = () => {
-  const [input, setInput] = useState("");
   const [hymn, setHymn] = useState(1);
   const [mode, setMode] = useState("sung");
   const [options, setOptions] = useState(hymns);
@@ -55,8 +54,6 @@ const Selector = () => {
         <Autocomplete
           value={hymns[hymn - 1]}
           onChange={(e, value) => setHymn(value.number)}
-          inputValue={input}
-          onInputChange={(e, value) => setInput(value)}
           autoHighlight
           disableClearable
           sx={{ paddingBottom: 2 }}
