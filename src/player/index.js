@@ -87,7 +87,7 @@ const Player = ({ mode, hymn: number, url }) => {
                   navigator.share({
                     title: "Hinário Adventista",
                     text: `${number} - ${hymn.attributes.title}`,
-                    url: `${process.env.PUBLIC_URL}/load/${mode}/${number}`,
+                    url: `${process.env.PUBLIC_URL}/share/${mode}/${number}`,
                   });
                 }}
               >
