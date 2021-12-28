@@ -1,12 +1,10 @@
 import { useEffect, useContext, useState } from "react";
 import { CircularProgress, Typography, Card, CardContent, Container } from "@mui/material";
+import { navigate } from "@reach/router";
 import { getHymn } from "./hymn";
 import { getPath } from "./parser";
-// import context from "../../context";
 
 const Loader = ({ mode, hymn }) => {
-  //   const { hymnState, modeState, progress, progressDispatch, finishedDispatch, errorDispatch, URIDispatch } =
-  //     useContext(context);
   const [progress, setProgress] = useState(0);
   const path = getPath({ mode, hymn });
 
@@ -16,10 +14,7 @@ const Loader = ({ mode, hymn }) => {
         // URIDispatch(hymnURI);
         // NAVIGATE TO PLAYER
       } else {
-        // errorDispatch(true);
-        // finishedDispatch(true);
-        // NAVIGATE TO SELECTOR
-        // maybe show error message
+        navigate("/error");
       }
     });
   }, [path]);
