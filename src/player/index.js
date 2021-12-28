@@ -5,7 +5,7 @@ import { navigate } from "@reach/router";
 import hymns from "./hymns";
 import { setFavorite, getFavorites } from "../common/favorites";
 
-const Player = ({ mode, hymn: number, url }) => {
+const Player = ({ hymn: number, url }) => {
   const hymn = hymns[number - 1];
 
   const [isFavorite, setIsFavorite] = useState(false);

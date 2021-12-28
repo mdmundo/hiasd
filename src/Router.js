@@ -9,9 +9,9 @@ const AppRouter = () => (
     <Selector default path="/" />
     <Loader path="/load/:mode/:hymn" />
     <Error path="/error" />
-    <Player path="/play/:mode/:hymn/:url" />
+    <Player path="/play/:hymn" />
+    <Player path="/play/:hymn/:url" />
     {/* format url before sending as argument */}
-    {/* <Player path="/read/:hymn" /> */}
   </Router>
 );
 
