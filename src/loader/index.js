@@ -9,17 +9,24 @@ const Loader = ({ mode, hymn }) => {
   const path = getPath({ mode, hymn });
 
   useEffect(() => {
+    let userStillAwaiting = true;
     if (mode !== "lyrics") {
       getHymn(path, setProgress).then((hymnURI) => {
-        if (hymnURI) {
-          navigate(`/play/${mode}/${hymn}`, { state: { url: hymnURI }, replace: true });
-        } else {
-          navigate("/error", { replace: true });
+        if (userStillAwaiting) {
+          if (hymnURI) {
+            navigate(`/play/${mode}/${hymn}`, { state: { url: hymnURI }, replace: true });
+          } else {
+            navigate("/error", { replace: true });
+          }
         }
       });
     } else {
       navigate(`/play/${mode}/${hymn}`, { replace: true });
     }
+
+    return () => {
+      userStillAwaiting = false;
+    };
   }, [path, hymn, mode]);
 
   return (
