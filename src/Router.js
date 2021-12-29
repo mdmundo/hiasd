@@ -12,7 +12,6 @@ const AppRouter = () => (
     <Share path="/share/:mode/:hymn" />
     <Error path="/error" />
     <Player path="/play/:mode/:hymn" />
-    <Player path="/play/:mode/:hymn/:url" />
   </Router>
 );
 

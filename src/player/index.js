@@ -5,7 +5,13 @@ import { navigate } from "@reach/router";
 import hymns from "./hymns";
 import { setFavorite, getFavorites } from "../common/favorites";
 
-const Player = ({ mode, hymn: number, url }) => {
+const Player = ({
+  mode,
+  hymn: number,
+  location: {
+    state: { url },
+  },
+}) => {
   const hymn = hymns[number - 1];
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -69,7 +75,7 @@ const Player = ({ mode, hymn: number, url }) => {
             })}
           </Box>
         </CardContent>
-        <video autoPlay height={0} width={0} src={decodeURIComponent(url)} />
+        <video autoPlay height={0} width={0} src={url} />
         <CardActions disableSpacing sx={{ marginTop: 5 }}>
           <Grid container direction="row" justifyContent="space-between" alignItems="center">
             <Tooltip title="Voltar" placement="top-start">
