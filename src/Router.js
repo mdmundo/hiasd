@@ -8,10 +8,8 @@ import { Router } from "@reach/router";
 
 const AppRouter = () => (
   <Router>
-    <Selector default path="/" />
-    <List path="/list" />
-    {/* <List default path="/" /> */}
-    {/* <Selector path="/selector" /> */}
+    <List default path="/" />
+    <Selector path="/selector" />
     <Loader path="/load/:mode/:hymn" />
     <Share path="/share/:mode/:hymn" />
     <Error path="/error" />
