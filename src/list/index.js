@@ -13,7 +13,6 @@ const List = () => {
   const { category: selected, setCategory: setSelected } = useContext(Category);
 
   const [options, setOptions] = useState([]);
-  // const [selected, setSelected] = useState(category);
 
   useEffect(() => {
     getFavorites().then((numbers) => {
