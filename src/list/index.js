@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions, Stack } from "@mui/material";
+import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
@@ -8,7 +8,7 @@ import { getFavorites } from "../common/favorites";
 
 const List = () => {
   const [options, setOptions] = useState(hymns);
-  const [categories, setCategories] = useState(["Favoritos", ...new Set(hymns.map((option) => option.category))]);
+  const [categories] = useState(["Favoritos", ...new Set(hymns.map((option) => option.category))]);
   const [selected, setSelected] = useState();
 
   useEffect(() => {
