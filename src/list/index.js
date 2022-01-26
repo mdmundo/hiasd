@@ -3,14 +3,14 @@ import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardA
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
-import categories from "./categories.json";
+import sorted from "./categories.json";
 import hymns from "./options.json";
-import list from "./list.json";
+import categories from "./list.json";
 import { getFavorites } from "../common/favorites";
 
 const List = () => {
   const [options, setOptions] = useState([]);
-  const [selected, setSelected] = useState(list[0]);
+  const [selected, setSelected] = useState(categories[0]);
 
   useEffect(() => {
     getFavorites().then((numbers) => {
@@ -20,7 +20,7 @@ const List = () => {
         return { hymn, number };
       });
 
-      const options = { ...categories, Favoritos: favorites };
+      const options = { ...sorted, Favoritos: favorites };
 
       setOptions(options);
     });
@@ -29,7 +29,7 @@ const List = () => {
   return (
     <Container sx={{ my: 2 }}>
       <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
-        {["Favoritos", ...list].map((category) => (
+        {["Favoritos", ...categories].map((category) => (
           <Grid key={category} item>
             <Chip
               label={category}
