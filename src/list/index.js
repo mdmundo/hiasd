@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Grid, IconButton, Typography, Container, Card, CardContent, CardActions } from "@mui/material";
+import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions, Stack } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
@@ -8,6 +8,8 @@ import { getFavorites } from "../common/favorites";
 
 const List = () => {
   const [options, setOptions] = useState(hymns);
+  const [categories, setCategories] = useState(["Favoritos", ...new Set(hymns.map((option) => option.category))]);
+  const [selected, setSelected] = useState();
 
   useEffect(() => {
     getFavorites().then((favorites) => {
@@ -25,8 +27,27 @@ const List = () => {
 
   return (
     <Container sx={{ my: 2 }}>
+      <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
+        {categories.map((category) => (
+          <Grid key={category} item>
+            <Chip
+              label={category}
+              variant={selected === category ? "filled" : "outlined"}
+              color="primary"
+              size="small"
+              onClick={() => {
+                if (selected === category) {
+                  setSelected(undefined);
+                } else {
+                  setSelected(category);
+                }
+              }}
+            />
+          </Grid>
+        ))}
+      </Grid>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {options.map((option, index) => (
+        {(selected ? options.filter((option) => option.category === selected) : options).map((option, index) => (
           <Grid item key={`${index}${option.number}`}>
             <Card>
               <CardContent>
