@@ -3,9 +3,9 @@ import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardA
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
-import sorted from "./categories.json";
-import hymns from "./options.json";
-import categories from "./list.json";
+import sorted from "./sorted.json";
+import hymns from "./hymns.json";
+import categories from "./categories.json";
 import { getFavorites } from "../common/favorites";
 
 const List = () => {
