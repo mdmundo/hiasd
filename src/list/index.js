@@ -1,20 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Button,
-  TextField,
-  Autocomplete,
-  Grid,
-  Tooltip,
-  IconButton,
-  Typography,
-  Container,
-  Stack,
-  ListItem,
-  Divider,
-  Card,
-  CardContent,
-  CardActions,
-} from "@mui/material";
+import { Grid, IconButton, Typography, Container, Card, CardContent, CardActions } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Instrumental from "./InstrumentalIcon";
@@ -22,18 +7,7 @@ import hymns from "./options.json";
 import { getFavorites } from "../common/favorites";
 
 const List = () => {
-  const [hymn, setHymn] = useState(1);
-  const [mode, setMode] = useState("sung");
   const [options, setOptions] = useState(hymns);
-
-  //   const onSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     if (isNaN(hymn) || parseInt(hymn) < 1 || parseInt(hymn) > 613) return;
-
-  //     navigate(`/load/${mode}/${hymn}`);
-  //     // maybe save current hymn and mode...
-  //   };
 
   useEffect(() => {
     getFavorites().then((favorites) => {
@@ -43,7 +17,7 @@ const List = () => {
         return { ...option, category: "Favoritos" };
       });
 
-      const favoritesPlusHymns = favoritesToOptions.concat(hymns);
+      const favoritesPlusHymns = hymns.concat(favoritesToOptions);
 
       setOptions(favoritesPlusHymns);
     });
@@ -52,26 +26,44 @@ const List = () => {
   return (
     <Container sx={{ my: 2 }}>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {hymns.map((hymn) => (
-          <Grid item>
+        {options.map((option, index) => (
+          <Grid item key={`${index}${option.number}`}>
             <Card>
               <CardContent>
                 <Typography variant="button" display="block" align="center" gutterBottom>
-                  {hymn.number}
+                  {option.number}
                 </Typography>
-                <Typography>{hymn.hymn}</Typography>
+                <Typography>{option.hymn}</Typography>
                 <Typography color="text.secondary" variant="caption" display="block">
-                  {hymn.category}
+                  {option.category}
                 </Typography>
               </CardContent>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                <IconButton size="small" disableRipple>
+                <IconButton
+                  size="small"
+                  disableRipple
+                  onClick={() => {
+                    navigate(`/load/sung/${option.number}`);
+                  }}
+                >
                   <MusicNote fontSize="small" color="primary" />
                 </IconButton>
-                <IconButton size="small" disableRipple>
+                <IconButton
+                  size="small"
+                  disableRipple
+                  onClick={() => {
+                    navigate(`/load/instrumental/${option.number}`);
+                  }}
+                >
                   <Instrumental fontSize="small" color="primary" />
                 </IconButton>
-                <IconButton size="small" disableRipple>
+                <IconButton
+                  size="small"
+                  disableRipple
+                  onClick={() => {
+                    navigate(`/load/lyrics/${option.number}`);
+                  }}
+                >
                   <MusicOff fontSize="small" color="primary" />
                 </IconButton>
               </CardActions>
