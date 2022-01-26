@@ -13,6 +13,7 @@ import {
   Divider,
   Card,
   CardContent,
+  CardActions,
 } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
@@ -63,6 +64,17 @@ const List = () => {
                   {hymn.category}
                 </Typography>
               </CardContent>
+              <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <IconButton size="small" disableRipple>
+                  <MusicNote fontSize="small" color="primary" />
+                </IconButton>
+                <IconButton size="small" disableRipple>
+                  <Instrumental fontSize="small" color="primary" />
+                </IconButton>
+                <IconButton size="small" disableRipple>
+                  <MusicOff fontSize="small" color="primary" />
+                </IconButton>
+              </CardActions>
             </Card>
           </Grid>
         ))}
