@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions } from "@mui/material";
+import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions, Tooltip } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Category from "./Category";
@@ -44,7 +44,7 @@ const List = () => {
         ))}
       </Grid>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {options[selected]?.length > 0 &&
+        {options[selected] &&
           options[selected].map((option, index) => (
             <Grid item key={`${index}${option.number}`}>
               <Card>
@@ -58,33 +58,39 @@ const List = () => {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    onClick={() => {
-                      navigate(`/load/sung/${option.number}`);
-                    }}
-                  >
-                    <MusicNote fontSize="small" color="primary" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    onClick={() => {
-                      navigate(`/load/instrumental/${option.number}`);
-                    }}
-                  >
-                    <Instrumental fontSize="small" color="primary" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    onClick={() => {
-                      navigate(`/load/lyrics/${option.number}`);
-                    }}
-                  >
-                    <MusicOff fontSize="small" color="primary" />
-                  </IconButton>
+                  <Tooltip title="Cantado">
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      onClick={() => {
+                        navigate(`/load/sung/${option.number}`);
+                      }}
+                    >
+                      <MusicNote fontSize="small" color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Instrumental">
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      onClick={() => {
+                        navigate(`/load/instrumental/${option.number}`);
+                      }}
+                    >
+                      <Instrumental fontSize="small" color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Letra">
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      onClick={() => {
+                        navigate(`/load/lyrics/${option.number}`);
+                      }}
+                    >
+                      <MusicOff fontSize="small" color="primary" />
+                    </IconButton>
+                  </Tooltip>
                 </CardActions>
               </Card>
             </Grid>
