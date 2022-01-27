@@ -16,11 +16,7 @@ const List = () => {
 
   useEffect(() => {
     getFavorites().then((numbers) => {
-      const favorites = numbers.map((favorite) => {
-        const { hymn, number } = hymns[favorite - 1];
-
-        return { hymn, number };
-      });
+      const favorites = numbers.map((favorite) => hymns[favorite - 1]);
 
       const options = { ...sorted, Favoritos: favorites };
 
