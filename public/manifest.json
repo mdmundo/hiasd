@@ -5,7 +5,7 @@
   "orientation": "portrait",
   "categories": ["music", "religious", "hymns"],
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "browser",
   "icons": [
     {
       "src": "192.png",
