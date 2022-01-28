@@ -49,7 +49,7 @@ const Player = ({
     >
       <Zoom
         in={!out}
-        timeout={1500}
+        timeout={300}
         onExited={() => {
           navigate("/");
         }}

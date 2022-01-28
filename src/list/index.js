@@ -46,7 +46,7 @@ const List = () => {
     <Container sx={{ my: 2 }}>
       <Zoom
         in={!zoomOut}
-        timeout={1500}
+        timeout={300}
         onExited={() => {
           navigate(onExit);
         }}
