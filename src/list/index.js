@@ -1,5 +1,17 @@
 import { useState, useEffect, useContext } from "react";
-import { Chip, Grid, IconButton, Typography, Container, Card, CardContent, CardActions, Tooltip } from "@mui/material";
+import {
+  Chip,
+  Grid,
+  IconButton,
+  Typography,
+  Container,
+  Card,
+  CardContent,
+  CardActions,
+  Tooltip,
+  RadioGroup,
+  Radio,
+} from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
 import Category from "./Category";
@@ -26,23 +38,34 @@ const List = () => {
 
   return (
     <Container sx={{ my: 2 }}>
-      <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
-        {["Favoritos", ...categories].map((category) => (
-          <Grid key={category} item>
-            <Chip
-              label={category}
-              variant={selected === category ? "filled" : "outlined"}
-              color="primary"
-              size="small"
-              onClick={() => {
-                if (selected !== category) {
-                  setSelected(category);
-                }
-              }}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <RadioGroup
+        value={selected}
+        onChange={(e, value) => {
+          setSelected(value);
+        }}
+      >
+        <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
+          {["Favoritos", ...categories].map((category) => {
+            return (
+              <Grid key={category} item>
+                <Radio
+                  sx={{
+                    p: 0,
+                    "&:hover": {
+                      background: "none",
+                    },
+                  }}
+                  icon={<Chip label={category} variant="outlined" color="primary" size="small" />}
+                  checkedIcon={<Chip label={category} variant="filled" color="primary" size="small" />}
+                  value={category}
+                  size="small"
+                  disableRipple
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </RadioGroup>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
         {options[selected] &&
           options[selected].map((option, index) => (
