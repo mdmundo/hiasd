@@ -43,142 +43,133 @@ const List = () => {
   }, []);
 
   return (
-    <Container sx={{ my: 2 }}>
-      <Zoom
-        in={!zoomOut}
-        timeout={300}
-        onExited={() => {
-          navigate(onExit);
-        }}
-      >
-        <div>
-          <RadioGroup
-            value={selected}
-            onChange={(e, value) => {
-              setGrowOut(true);
-              setSelected(value);
-            }}
-          >
-            <Grid
-              container
-              sx={{ mb: 2 }}
-              direction="row"
-              justifyContent="center"
-              alignItems="flex-start"
-              spacing={0.7}
-            >
-              {["Favoritos", ...categories].map((category) => {
-                return (
-                  <Grid key={category} item>
-                    <Radio
-                      sx={{
-                        p: 0,
-                        "&:hover": {
-                          background: "none",
-                        },
-                      }}
-                      icon={<Chip label={category} variant="outlined" color="primary" size="small" />}
-                      checkedIcon={<Chip label={category} variant="filled" color="primary" size="small" />}
-                      value={category}
-                      size="small"
-                      disableRipple
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </RadioGroup>
-          <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-            {options[category]?.length > 0 ? (
-              options[category].map((option, index) => (
-                <Grow
-                  key={`${index}${option.number}`}
-                  timeout={growOut ? 300 : 200 * index}
-                  in={!growOut}
-                  onExited={() => {
-                    if (growOut) {
-                      setGrowOut(false);
-                      setCategory(selected);
-                    }
-                  }}
-                >
-                  <Grid item>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="button" display="block" align="center" gutterBottom>
-                          {option.number}
-                        </Typography>
-                        <Typography>{option.hymn}</Typography>
-                        <Typography color="text.secondary" variant="caption" display="block">
-                          {option.category}
-                        </Typography>
-                      </CardContent>
-                      <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                        <Tooltip title="Cantado">
-                          <IconButton
-                            size="small"
-                            disableRipple
-                            onClick={() => {
-                              setOnExit(`/load/sung/${option.number}`);
-                              setZoomOut(true);
-                            }}
-                          >
-                            <MusicNote fontSize="small" color="primary" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Instrumental">
-                          <IconButton
-                            size="small"
-                            disableRipple
-                            onClick={() => {
-                              setOnExit(`/load/instrumental/${option.number}`);
-                              setZoomOut(true);
-                            }}
-                          >
-                            <Instrumental fontSize="small" color="primary" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Letra">
-                          <IconButton
-                            size="small"
-                            disableRipple
-                            onClick={() => {
-                              setOnExit(`/load/lyrics/${option.number}`);
-                              setZoomOut(true);
-                            }}
-                          >
-                            <MusicOff fontSize="small" color="primary" />
-                          </IconButton>
-                        </Tooltip>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                </Grow>
-              ))
-            ) : (
+    <Zoom
+      in={!zoomOut}
+      timeout={300}
+      onExited={() => {
+        navigate(onExit);
+      }}
+    >
+      <Container sx={{ my: 2 }}>
+        <RadioGroup
+          value={selected}
+          onChange={(e, value) => {
+            setGrowOut(true);
+            setSelected(value);
+          }}
+        >
+          <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
+            {["Favoritos", ...categories].map((category) => {
+              return (
+                <Grid key={category} item>
+                  <Radio
+                    sx={{
+                      p: 0,
+                      "&:hover": {
+                        background: "none",
+                      },
+                    }}
+                    icon={<Chip label={category} variant="outlined" color="primary" size="small" />}
+                    checkedIcon={<Chip label={category} variant="filled" color="primary" size="small" />}
+                    value={category}
+                    size="small"
+                    disableRipple
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </RadioGroup>
+        <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
+          {options[category]?.length > 0 ? (
+            options[category].map((option, index) => (
               <Grow
-                timeout={300}
+                key={`${index}${option.number}`}
+                timeout={growOut ? 300 : 200 * index}
                 in={!growOut}
                 onExited={() => {
-                  setGrowOut(false);
-                  setCategory(selected);
+                  if (growOut) {
+                    setGrowOut(false);
+                    setCategory(selected);
+                  }
                 }}
               >
                 <Grid item>
                   <Card>
                     <CardContent>
-                      <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
-                        {"🍪"}
+                      <Typography variant="button" display="block" align="center" gutterBottom>
+                        {option.number}
+                      </Typography>
+                      <Typography>{option.hymn}</Typography>
+                      <Typography color="text.secondary" variant="caption" display="block">
+                        {option.category}
                       </Typography>
                     </CardContent>
+                    <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                      <Tooltip title="Cantado">
+                        <IconButton
+                          size="small"
+                          disableRipple
+                          onClick={() => {
+                            setOnExit(`/load/sung/${option.number}`);
+                            setZoomOut(true);
+                          }}
+                        >
+                          <MusicNote fontSize="small" color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Instrumental">
+                        <IconButton
+                          size="small"
+                          disableRipple
+                          onClick={() => {
+                            setOnExit(`/load/instrumental/${option.number}`);
+                            setZoomOut(true);
+                          }}
+                        >
+                          <Instrumental fontSize="small" color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Letra">
+                        <IconButton
+                          size="small"
+                          disableRipple
+                          onClick={() => {
+                            setOnExit(`/load/lyrics/${option.number}`);
+                            setZoomOut(true);
+                          }}
+                        >
+                          <MusicOff fontSize="small" color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                    </CardActions>
                   </Card>
                 </Grid>
               </Grow>
-            )}
-          </Grid>
-        </div>
-      </Zoom>
-    </Container>
+            ))
+          ) : (
+            <Grow
+              timeout={300}
+              in={!growOut}
+              onExited={() => {
+                setGrowOut(false);
+                setCategory(selected);
+              }}
+            >
+              <Grid item>
+                <Card>
+                  <CardContent>
+                    <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
+                      {"🍪"}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grow>
+          )}
+        </Grid>
+      </Container>
+    </Zoom>
   );
 };
 
