@@ -1,4 +1,4 @@
-import Selector from "./selector";
+// import Selector from "./selector";
 import List from "./list";
 import Loader from "./loader";
 import Share from "./share";
