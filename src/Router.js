@@ -9,7 +9,7 @@ import { Router } from "@reach/router";
 const AppRouter = () => (
   <Router>
     <List default path="/" />
-    <Selector path="/selector" />
+    {/* <Selector path="/selector" /> */}
     <Loader path="/load/:mode/:hymn" />
     <Share path="/share/:mode/:hymn" />
     <Error path="/error" />
