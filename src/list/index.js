@@ -147,7 +147,7 @@ const List = () => {
               <Card>
                 <CardContent>
                   <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
-                    {"😶‍🌫️"}
+                    {"🍪"}
                   </Typography>
                 </CardContent>
               </Card>
