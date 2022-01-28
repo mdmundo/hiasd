@@ -149,10 +149,7 @@ const List = () => {
             <Grid item>
               <Card>
                 <CardContent>
-                  <Typography sx={{ py: 2 }} variant="button" display="block" align="center" gutterBottom>
-                    {"Vazio"}
-                  </Typography>
-                  <Typography variant="h1" display="block" align="center" gutterBottom>
+                  <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
                     {"😶‍🌫️"}
                   </Typography>
                 </CardContent>
