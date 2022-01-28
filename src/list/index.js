@@ -12,8 +12,6 @@ import {
   RadioGroup,
   Radio,
   Grow,
-  Zoom,
-  // zoom on radio and fix empty fav bug
 } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
@@ -29,7 +27,7 @@ const List = () => {
 
   const [options, setOptions] = useState([]);
   const [out, setOut] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(selected);
 
   useEffect(() => {
     getFavorites().then((numbers) => {
@@ -38,7 +36,6 @@ const List = () => {
       const options = { ...sorted, Favoritos: favorites };
 
       setOptions(options);
-      setCategory(options[selected]);
     });
   }, []);
 
@@ -74,8 +71,8 @@ const List = () => {
         </Grid>
       </RadioGroup>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {category.length !== 0 ? (
-          category.map((option, index) => (
+        {options[category]?.length > 0 ? (
+          options[category].map((option, index) => (
             <Grow
               key={`${index}${option.number}`}
               timeout={out ? 300 : 200 * index}
@@ -83,7 +80,7 @@ const List = () => {
               onExited={() => {
                 if (out) {
                   setOut(false);
-                  setCategory(options[selected]);
+                  setCategory(selected);
                 }
               }}
             >
@@ -143,7 +140,7 @@ const List = () => {
             in={!out}
             onExited={() => {
               setOut(false);
-              setCategory(options[selected]);
+              setCategory(selected);
             }}
           >
             <Grid item>
