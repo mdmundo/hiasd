@@ -29,7 +29,7 @@ const List = () => {
 
   const [options, setOptions] = useState([]);
   const [out, setOut] = useState(false);
-  const [category, setCategory] = useState(selected);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     getFavorites().then((numbers) => {
@@ -38,6 +38,7 @@ const List = () => {
       const options = { ...sorted, Favoritos: favorites };
 
       setOptions(options);
+      setCategory(options[selected]);
     });
   }, []);
 
@@ -73,8 +74,8 @@ const List = () => {
         </Grid>
       </RadioGroup>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {options[category] &&
-          options[category].map((option, index) => (
+        {category.length !== 0 ? (
+          category.map((option, index) => (
             <Grow
               key={`${index}${option.number}`}
               timeout={out ? 300 : 200 * index}
@@ -82,7 +83,7 @@ const List = () => {
               onExited={() => {
                 if (out) {
                   setOut(false);
-                  setCategory(selected);
+                  setCategory(options[selected]);
                 }
               }}
             >
@@ -135,7 +136,30 @@ const List = () => {
                 </Card>
               </Grid>
             </Grow>
-          ))}
+          ))
+        ) : (
+          <Grow
+            timeout={300}
+            in={!out}
+            onExited={() => {
+              setOut(false);
+              setCategory(options[selected]);
+            }}
+          >
+            <Grid item>
+              <Card>
+                <CardContent>
+                  <Typography sx={{ py: 2 }} variant="button" display="block" align="center" gutterBottom>
+                    {"Vazio"}
+                  </Typography>
+                  <Typography variant="h1" display="block" align="center" gutterBottom>
+                    {"😶‍🌫️"}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grow>
+        )}
       </Grid>
     </Container>
   );
