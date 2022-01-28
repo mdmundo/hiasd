@@ -25,7 +25,7 @@ import { getFavorites } from "../common/favorites";
 const List = () => {
   const { category: selected, setCategory: setSelected } = useContext(Category);
 
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(sorted);
   const [out, setOut] = useState(false);
   const [category, setCategory] = useState(selected);
 
