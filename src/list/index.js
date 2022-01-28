@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Radio,
   Grow,
+  Zoom,
 } from "@mui/material";
 import { MusicOff, MusicNote } from "@mui/icons-material";
 import { navigate } from "@reach/router";
@@ -26,8 +27,10 @@ const List = () => {
   const { category: selected, setCategory: setSelected } = useContext(Category);
 
   const [options, setOptions] = useState(sorted);
-  const [out, setOut] = useState(false);
+  const [growOut, setGrowOut] = useState(false);
+  const [zoomOut, setZoomOut] = useState(false);
   const [category, setCategory] = useState(selected);
+  const [onExit, setOnExit] = useState();
 
   useEffect(() => {
     getFavorites().then((numbers) => {
@@ -41,120 +44,140 @@ const List = () => {
 
   return (
     <Container sx={{ my: 2 }}>
-      <RadioGroup
-        value={selected}
-        onChange={(e, value) => {
-          setOut(true);
-          setSelected(value);
+      <Zoom
+        in={!zoomOut}
+        timeout={1500}
+        onExited={() => {
+          navigate(onExit);
         }}
       >
-        <Grid container sx={{ mb: 2 }} direction="row" justifyContent="center" alignItems="flex-start" spacing={0.7}>
-          {["Favoritos", ...categories].map((category) => {
-            return (
-              <Grid key={category} item>
-                <Radio
-                  sx={{
-                    p: 0,
-                    "&:hover": {
-                      background: "none",
-                    },
-                  }}
-                  icon={<Chip label={category} variant="outlined" color="primary" size="small" />}
-                  checkedIcon={<Chip label={category} variant="filled" color="primary" size="small" />}
-                  value={category}
-                  size="small"
-                  disableRipple
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </RadioGroup>
-      <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
-        {options[category]?.length > 0 ? (
-          options[category].map((option, index) => (
-            <Grow
-              key={`${index}${option.number}`}
-              timeout={out ? 300 : 200 * index}
-              in={!out}
-              onExited={() => {
-                if (out) {
-                  setOut(false);
-                  setCategory(selected);
-                }
-              }}
-            >
-              <Grid item>
-                <Card>
-                  <CardContent>
-                    <Typography variant="button" display="block" align="center" gutterBottom>
-                      {option.number}
-                    </Typography>
-                    <Typography>{option.hymn}</Typography>
-                    <Typography color="text.secondary" variant="caption" display="block">
-                      {option.category}
-                    </Typography>
-                  </CardContent>
-                  <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                    <Tooltip title="Cantado">
-                      <IconButton
-                        size="small"
-                        disableRipple
-                        onClick={() => {
-                          navigate(`/load/sung/${option.number}`);
-                        }}
-                      >
-                        <MusicNote fontSize="small" color="primary" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Instrumental">
-                      <IconButton
-                        size="small"
-                        disableRipple
-                        onClick={() => {
-                          navigate(`/load/instrumental/${option.number}`);
-                        }}
-                      >
-                        <Instrumental fontSize="small" color="primary" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Letra">
-                      <IconButton
-                        size="small"
-                        disableRipple
-                        onClick={() => {
-                          navigate(`/load/lyrics/${option.number}`);
-                        }}
-                      >
-                        <MusicOff fontSize="small" color="primary" />
-                      </IconButton>
-                    </Tooltip>
-                  </CardActions>
-                </Card>
-              </Grid>
-            </Grow>
-          ))
-        ) : (
-          <Grow
-            timeout={300}
-            in={!out}
-            onExited={() => {
-              setOut(false);
-              setCategory(selected);
+        <div>
+          <RadioGroup
+            value={selected}
+            onChange={(e, value) => {
+              setGrowOut(true);
+              setSelected(value);
             }}
           >
-            <Grid item>
-              <Card>
-                <CardContent>
-                  <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
-                    {"🍪"}
-                  </Typography>
-                </CardContent>
-              </Card>
+            <Grid
+              container
+              sx={{ mb: 2 }}
+              direction="row"
+              justifyContent="center"
+              alignItems="flex-start"
+              spacing={0.7}
+            >
+              {["Favoritos", ...categories].map((category) => {
+                return (
+                  <Grid key={category} item>
+                    <Radio
+                      sx={{
+                        p: 0,
+                        "&:hover": {
+                          background: "none",
+                        },
+                      }}
+                      icon={<Chip label={category} variant="outlined" color="primary" size="small" />}
+                      checkedIcon={<Chip label={category} variant="filled" color="primary" size="small" />}
+                      value={category}
+                      size="small"
+                      disableRipple
+                    />
+                  </Grid>
+                );
+              })}
             </Grid>
-          </Grow>
-        )}
-      </Grid>
+          </RadioGroup>
+          <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
+            {options[category]?.length > 0 ? (
+              options[category].map((option, index) => (
+                <Grow
+                  key={`${index}${option.number}`}
+                  timeout={growOut ? 300 : 200 * index}
+                  in={!growOut}
+                  onExited={() => {
+                    if (growOut) {
+                      setGrowOut(false);
+                      setCategory(selected);
+                    }
+                  }}
+                >
+                  <Grid item>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="button" display="block" align="center" gutterBottom>
+                          {option.number}
+                        </Typography>
+                        <Typography>{option.hymn}</Typography>
+                        <Typography color="text.secondary" variant="caption" display="block">
+                          {option.category}
+                        </Typography>
+                      </CardContent>
+                      <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                        <Tooltip title="Cantado">
+                          <IconButton
+                            size="small"
+                            disableRipple
+                            onClick={() => {
+                              setOnExit(`/load/sung/${option.number}`);
+                              setZoomOut(true);
+                            }}
+                          >
+                            <MusicNote fontSize="small" color="primary" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Instrumental">
+                          <IconButton
+                            size="small"
+                            disableRipple
+                            onClick={() => {
+                              setOnExit(`/load/instrumental/${option.number}`);
+                              setZoomOut(true);
+                            }}
+                          >
+                            <Instrumental fontSize="small" color="primary" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Letra">
+                          <IconButton
+                            size="small"
+                            disableRipple
+                            onClick={() => {
+                              setOnExit(`/load/lyrics/${option.number}`);
+                              setZoomOut(true);
+                            }}
+                          >
+                            <MusicOff fontSize="small" color="primary" />
+                          </IconButton>
+                        </Tooltip>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Grow>
+              ))
+            ) : (
+              <Grow
+                timeout={300}
+                in={!growOut}
+                onExited={() => {
+                  setGrowOut(false);
+                  setCategory(selected);
+                }}
+              >
+                <Grid item>
+                  <Card>
+                    <CardContent>
+                      <Typography sx={{ p: 2 }} variant="h1" display="block" align="center">
+                        {"🍪"}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grow>
+            )}
+          </Grid>
+        </div>
+      </Zoom>
     </Container>
   );
 };
